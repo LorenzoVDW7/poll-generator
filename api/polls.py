@@ -8,8 +8,8 @@ class PollApp:
         self.token = self.get_session_token()
         self.categories = self.get_categories()
 
-    @staticmethod
-    def get_categories() -> list:
+
+    def get_categories(self) -> list | None:
         """Retrieves categories from API and returns them in a list.
         :rtype: list
         :return: The list of categories"""
@@ -24,7 +24,7 @@ class PollApp:
             category_list = [category for category in response["trivia_categories"]]
             return category_list
 
-    def get_session_token(self) -> str:
+    def get_session_token(self) -> str| None:
         """Retrieves session token from the API, with a lifetime of 6 hours when inactive.
         :rtype: str
         :return: Session token
@@ -34,12 +34,12 @@ class PollApp:
         return req.json()['token']
 
     def get_polls(self, amount: int = 10, difficulty: str = "medium",
-                  category: int = None, question_type: str = None) -> list:
+                  category: int = None, question_type: str = None) -> list | None:
         """Retrieves polls based on multiple optional factors.
         :param amount: The amount of polls to return.
         :param difficulty: The difficulty of the poll questions.
         :param category: The category of the poll questions.
-        :param question_type: The type of the poll questions. Can either be boolean (true/false), or multiple choice.
+        :param question_type: The type of the poll questions. Can either be boolean (true/false), or multiple.
         :rtype: list
         :return: The list of polls"""
         req = ""
