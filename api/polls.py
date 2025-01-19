@@ -21,8 +21,8 @@ class PollApp:
             print(e)
         finally:
             response = json.loads(req.text)
-            category_list = [category["name"] for category in response["trivia_categories"]]
-        return category_list
+            category_list = [category for category in response["trivia_categories"]]
+            return category_list
 
     def get_session_token(self) -> str:
         """Retrieves session token from the API, with a lifetime of 6 hours when inactive.
@@ -33,8 +33,7 @@ class PollApp:
         req = requests.get(url)
         return req.json()['token']
 
-    @staticmethod
-    def get_polls(amount: int = 10, difficulty: str = "medium",
+    def get_polls(self, amount: int = 10, difficulty: str = "medium",
                   category: int = None, question_type: str = None) -> list:
         """Retrieves polls based on multiple optional factors.
         :param amount: The amount of polls to return.
@@ -44,7 +43,7 @@ class PollApp:
         :rtype: list
         :return: The list of polls"""
         req = ""
-        url = f"https://opentdb.com/api.php?amount={amount}&difficulty={difficulty}"
+        url = f"https://opentdb.com/api.php?amount={amount}&difficulty={difficulty}&token={self.token}"
         if category:
             url += f"&category={category}"
         if question_type:
@@ -59,4 +58,3 @@ class PollApp:
             if response["response_code"] == 0:
                 polls_list = [poll for poll in response["results"]]
                 return polls_list
-
