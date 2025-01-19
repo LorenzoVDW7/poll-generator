@@ -36,6 +36,13 @@ class PollApp:
     @staticmethod
     def get_polls(amount: int = 10, difficulty: str = "medium",
                   category: int = None, question_type: str = None) -> list:
+        """Retrieves polls based on multiple optional factors.
+        :param amount: The amount of polls to return.
+        :param difficulty: The difficulty of the poll questions.
+        :param category: The category of the poll questions.
+        :param question_type: The type of the poll questions. Can either be boolean (true/false), or multiple choice.
+        :rtype: list
+        :return: The list of polls"""
         req = ""
         url = f"https://opentdb.com/api.php?amount={amount}&difficulty={difficulty}"
         if category:
