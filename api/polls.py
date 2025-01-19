@@ -1,15 +1,18 @@
+"""This module contains the functionality for consuming the Open Trivia Database API"""
 import json
-
 import requests
 
 
-class PollApp():
+class PollApp:
     def __init__(self):
         self.token = self.get_session_token()
         self.categories = self.get_categories()
 
     @staticmethod
     def get_categories() -> list:
+        """Retrieves categories from API and returns them in a list.
+        :rtype: list
+        :return: The list of categories"""
         url = "https://opentdb.com/api_category.php"
         req = ""
         try:
@@ -22,11 +25,16 @@ class PollApp():
         return category_list
 
     def get_session_token(self) -> str:
+        """Retrieves session token from the API, with a lifetime of 6 hours when inactive.
+        :rtype: str
+        :return: Session token
+        """
         url = "https://opentdb.com/api_token.php?command=request"
         req = requests.get(url)
         return req.json()['token']
 
-    def get_polls(self, amount: int = 10, difficulty: str = "medium",
+    @staticmethod
+    def get_polls(amount: int = 10, difficulty: str = "medium",
                   category: int = None, question_type: str = None) -> list:
         req = ""
         url = f"https://opentdb.com/api.php?amount={amount}&difficulty={difficulty}"
