@@ -1,6 +1,8 @@
 """This module is meant for helper functions regarding the formatting of input/output"""
 import random
 
+from api.polls import PollApp
+
 
 def single_poll_from_list(poll_list: list) -> dict:
     """Formats an incoming list of poll questions into a single poll.
@@ -22,4 +24,12 @@ def single_poll_from_list(poll_list: list) -> dict:
     poll_dict['answers'] = answers
     poll_dict['correct_answer'] = single_poll['correct_answer']
     return poll_dict
+
+def format_categories(app: PollApp) -> None:
+    for count, category in enumerate(app.categories):
+        if count % 4 == 0:
+            print("")
+        print(f"{category['id']}: {category['name']} ", end="")
+
+
 
