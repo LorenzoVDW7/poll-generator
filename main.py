@@ -4,8 +4,11 @@ from helper.formatting import single_poll_from_list
 
 
 def main():
-    user_input = -1
-    user_category = -1
+    # TODO: Add exception handling for user input.
+    # TODO: Add documentation
+    # TODO: Cleaning up main loop by breaking up code into smaller methods
+    user_input = None
+    user_category = None
     poll_ids = []
     app = PollApp()
     print("Welcome to the Poll-Generator!")
@@ -59,7 +62,6 @@ def main():
                     else:
                         print(f"You chose {user_answer}, this was incorrect!")
                         continue
-
         break
 
     print("Thanks for playing!")
