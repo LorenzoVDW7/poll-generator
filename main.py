@@ -1,45 +1,41 @@
 import random
 from api.polls import PollApp
-from helper.formatting import single_poll_from_list
+from helper.formatting import single_poll_from_list, format_categories
+from helper.answering import parse_answer, format_int_in_range, format_difficulty
 
 
 def main():
     # TODO: Add exception handling for user input.
     # TODO: Add documentation
     # TODO: Cleaning up main loop by breaking up code into smaller methods
+    # TODO: Fix token getting reset every time the game is restarted
+    app = PollApp()
     user_input = None
     user_category = None
-    poll_ids = []
-    app = PollApp()
+    poll_ids = [category['id'] for category in app.categories]
+    active = True
+
     print("Welcome to the Poll-Generator!")
 
-    while True:
+    while active:
         print("Here's a list of categories to choose from: ")
-        for count, category in enumerate(app.categories):
-            if count % 4 == 0:
-                print("")
-            print(f"{category['id']}: {category['name']} ", end="")
-            poll_ids.append(category['id'])
+        format_categories(app)
 
         while user_input != 69:
             try:
-                user_input = int(input("\nPlease choose a category based on the numbers per category "
-                                       "or type '69' to quit: "))
+                user_input = parse_answer("\nPlease choose a category based on the numbers per category: ", poll_ids)
             except ValueError:
-                print("Please enter a valid number.")
+                print("Please enter a valid number")
+                continue
             finally:
-                if user_input not in poll_ids:
-                    print("Please enter a valid number from the list of options.")
-                    continue
                 for category in app.categories:
                     if user_input == category['id']:
                         print(f"You chose {category['name']}")
                         user_category = category['id']
                 break
 
-        user_difficulty_answer = input(
-            "Please choose a difficulty level or leave empty for a random difficulty level: ")
-        user_amount_answer = int(input("Please choose a amount of questions, this number can be between 1 and 50: "))
+        user_difficulty_answer = format_difficulty("Please select a difficulty level: ")
+        user_amount_answer = format_int_in_range("Please enter the amount of poll questions you'd like to answer: ")
         print("\nA random poll will now be generated for you...")
 
         polls_response = app.get_polls(category=user_category,
@@ -62,7 +58,7 @@ def main():
                     else:
                         print(f"You chose {user_answer}, this was incorrect!")
                         continue
-        break
+        active = False
 
     print("Thanks for playing!")
 
