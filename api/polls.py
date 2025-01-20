@@ -34,7 +34,7 @@ class PollApp:
         return req.json()['token']
 
     def get_polls(self, amount: int = 10, difficulty: str = "medium",
-                  category: int = None, question_type: str = None) -> list | None:
+                  category: int = None, question_type: str = "boolean") -> list | None:
         """Retrieves polls based on multiple optional factors.
         :param amount: The amount of polls to return.
         :param difficulty: The difficulty of the poll questions.
