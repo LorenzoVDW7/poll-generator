@@ -4,6 +4,7 @@ import requests
 
 
 class PollApp:
+    """Class for everything related to the Open Trivia Database API"""
     def __init__(self):
         self.token = self.get_session_token()
         self.categories = self.get_categories()
