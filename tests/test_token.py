@@ -1,6 +1,5 @@
 """The tests for the API token reside in this module.
 TODO: Add tests when token is being stored inside of a database."""
-import pytest
 
 
 def test_token(app):

@@ -38,7 +38,7 @@ def format_difficulty(prompt: str) -> str | None:
     :return: Either the validated chosen difficulty or None.
     :rtype: str | None"""
     difficulty_options = ["easy", "medium", "hard"]
-    print(f"The difficulty levels are: ")
+    print("The difficulty levels are: ")
     for option in difficulty_options:
         print(f"\t{option}".title())
     while True:

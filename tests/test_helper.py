@@ -1,5 +1,5 @@
-import pytest
-from helper.answering import format_difficulty, poll_handler
+from helper.answering import format_difficulty
+
 
 def test_format_difficulty_correct(monkeypatch):
     """Test for passing a 'Correct' value to the method"""
@@ -11,6 +11,7 @@ def test_format_difficulty_correct(monkeypatch):
     assert choice_easy == 'easy'
     assert choice_medium == 'medium'
     assert choice_hard == 'hard'
+
 
 def test_format_difficulty_incorrect(monkeypatch):
     """Test for passing an 'Incorrect' value to the method"""

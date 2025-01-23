@@ -3,7 +3,7 @@
 
 def test_categories(app):
     categories = app.get_categories()
-    assert type(categories) == list
+    assert type(categories) is list
     assert categories is not None
     for category in categories:
-        assert type(category) == dict
+        assert type(category) is dict

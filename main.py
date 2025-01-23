@@ -39,7 +39,7 @@ def main():
                                        difficulty=user_difficulty_answer, amount=user_amount_answer)
         while polls_response:
             poll_details = single_poll_from_list(polls_response)
-            poll = poll_handler(poll_details)
+            poll_handler(poll_details)
 
         while True:
             user_continue_answer = input("\nWould you like to continue? (y/n): ").lower()
@@ -56,4 +56,5 @@ def main():
     print("Thanks for playing!")
 
 
-main()
+if __name__ == "__main__":
+    main()
