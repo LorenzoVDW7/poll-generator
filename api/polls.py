@@ -5,10 +5,10 @@ import requests
 
 class PollApp:
     """Class for everything related to the Open Trivia Database API"""
+
     def __init__(self):
         self.token = self.get_session_token()
         self.categories = self.get_categories()
-
 
     def get_categories(self) -> list | None:
         """Retrieves categories from API and returns them in a list.
@@ -25,7 +25,7 @@ class PollApp:
             category_list = [category for category in response["trivia_categories"]]
             return category_list
 
-    def get_session_token(self) -> str| None:
+    def get_session_token(self) -> str | None:
         """Retrieves session token from the API, with a lifetime of 6 hours when inactive.
         :rtype: str
         :return: Session token
