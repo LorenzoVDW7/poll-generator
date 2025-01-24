@@ -4,8 +4,6 @@ from helper.answering import parse_answer, format_int_in_range, format_difficult
 
 
 def main():
-    # TODO: Add exception handling for user input.
-    # TODO: Fix token getting reset every time the game is restarted
     app = PollApp()
     user_input = None
     user_category = None
