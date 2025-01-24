@@ -2,6 +2,8 @@
 import json
 import requests
 
+from helper.identifier import get_or_create_identifier
+
 
 class PollApp:
     """Class for everything related to the Open Trivia Database API"""
@@ -9,6 +11,7 @@ class PollApp:
     def __init__(self):
         self.token = self.get_session_token()
         self.categories = self.get_categories()
+        self.id = get_or_create_identifier()
 
     def get_categories(self) -> list | None:
         """Retrieves categories from API and returns them in a list.
