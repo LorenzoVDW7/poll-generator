@@ -29,11 +29,11 @@ class Database:
 
 
 class DatabaseUser(Database):
-    def __init__(self, user: str, password: str, host: str, database: str, user_id: str):
-        super().__init__(user, password, host, database)
+    def __init__(self, user_id: str):
+        super().__init__()
         self.uuid = user_id
 
-    def get_or_create_user(self, token: str):
+    def get_or_create_user(self, token: str) -> None:
         with Database() as connection:
             cursor = connection.cursor()
 
@@ -43,9 +43,11 @@ class DatabaseUser(Database):
                            uuid VARCHAR(100) NOT NULL UNIQUE,
                            timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP)""")
 
-            cursor.execute("""SELECT uuid FROM polling.user WHERE uuid = ?""", self.uuid)
+            cursor.execute("""SELECT uuid FROM polling.user WHERE uuid = %s""", (self.uuid,))
             result = cursor.fetchone()
 
             if not result:
-                cursor.execute("""INSERT INTO polling.user (token, uuid) VALUES (%s, %s)""", (token, self.uuid))
+                cursor.execute("""INSERT INTO polling.user (token, uuid) VALUES (%s, %s)""",
+                               (token, self.uuid))
                 connection.commit()
+                print("Changes have been made to the database.")
