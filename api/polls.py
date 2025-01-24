@@ -9,9 +9,9 @@ class PollApp:
     """Class for everything related to the Open Trivia Database API"""
 
     def __init__(self):
+        self.id = get_or_create_identifier()
         self.token = self.get_session_token()
         self.categories = self.get_categories()
-        self.id = get_or_create_identifier()
 
     def get_categories(self) -> list | None:
         """Retrieves categories from API and returns them in a list.
