@@ -39,7 +39,7 @@ jobs:
       run: |
         sudo systemctl start mysql.service
         sudo mysql --version
-        mysql -h ${{ DB_PORT }} -u ${{ DB_USER }} -p ${{ DB_PASSWORD }}
+        mysql -h $DB_PORT -u $DB_USER -p $DB_PASSWORD
 
     - name: Test with pytest
       run: |
