@@ -37,8 +37,6 @@ jobs:
       run: ruff check --output-format=github .
     - name: Debug MySQL Status
       run: docker ps -a
-    - name: Print Environment Variables
-      run: env | grep DB_
     - name: Run Tests
       env:
         DB_USER: root
