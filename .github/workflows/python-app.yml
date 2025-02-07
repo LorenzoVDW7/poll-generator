@@ -16,6 +16,15 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          MYSQL_DATABASE: test
+        ports:
+            - '8888:3306'
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
     - uses: actions/checkout@v4
@@ -32,11 +41,7 @@ jobs:
       run: ruff check --output-format=github .
     - name: Run MySQL server
       run: |
-        sudo systemctl start mysql.service
-        sudo mysql --version
-        echo "${{ secrets.DB_USER }}"
-        echo "${{ secrets.DB_PASSWORD }}"
-        mysql --host=127.0.0.1 --user=${{ secrets.DB_USER }} --password=${{ secrets.DB_PASSWORD }}
+        mysql -h 127.0.0.1 --port 8888 --user=${{ secrets.DB_USER }} --password=${{ secrets.DB_PASSWORD }} -e 'CREATE DATABASE IF NOT EXISTS test;'
 
     - name: Test with pytest
       run: |
