@@ -17,11 +17,6 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    env:
-      DB_USER: ${{ secrets.DB_USER }}
-      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-      DB_PORT: 127.0.0.1
-
     steps:
     - uses: actions/checkout@v4
     - name: Set up Python 3.13
@@ -39,7 +34,7 @@ jobs:
       run: |
         sudo systemctl start mysql.service
         sudo mysql --version
-        mysql -h $DB_PORT -u $DB_USER -p$DB_PASSWORD
+        mysql --host=127.0.0.1 -u ${{ secrets.DB_USER }} -p${{ secrets.DB_PASSWORD }}
 
     - name: Test with pytest
       run: |
