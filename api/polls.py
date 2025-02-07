@@ -13,8 +13,8 @@ class PollApp:
         self.id = get_or_create_identifier()
         self.token = self.get_session_token()
         self.categories = self.get_categories()
-        self.database_user = DatabaseUser(self.id)
-        self.database_user.get_or_create_user(self.token)
+        database_user = DatabaseUser(self.id)
+        database_user.get_or_create_user(self.token)
 
     def get_categories(self) -> list | None:
         """Retrieves categories from API and returns them in a list.
