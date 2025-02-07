@@ -17,7 +17,7 @@ jobs:
         image: mysql:8.0
         env:
           MYSQL_ROOT_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          MYSQL_DATABASE: test
+          MYSQL_DATABASE: polling
         ports:
           - '3306:3306'
         options: --health-cmd="mysqladmin ping --silent" --health-interval=10s --health-timeout=5s --health-retries=20
@@ -37,10 +37,12 @@ jobs:
       run: ruff check --output-format=github .
     - name: Debug MySQL Status
       run: docker ps -a
+    - name: Print Environment Variables
+      run: env | grep DB_
     - name: Run Tests
       env:
         DB_USER: root
         DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
         DB_HOST: 127.0.0.1
-        DB_NAME: test
+        DB_NAME: polling
       run: pytest
