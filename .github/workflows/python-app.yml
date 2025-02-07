@@ -34,7 +34,7 @@ jobs:
       run: |
         sudo systemctl start mysql.service
         sudo mysql --version
-        mysql --host=127.0.0.1 -u ${{ secrets.DB_USER }} -p${{ secrets.DB_PASSWORD }}
+        mysql --host=127.0.0.1 -u${{ secrets.DB_USER }} -p${{ secrets.DB_PASSWORD }}
 
     - name: Test with pytest
       run: |
