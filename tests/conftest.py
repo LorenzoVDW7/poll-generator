@@ -1,5 +1,5 @@
-import pytest
-from api.polls import PollApp
+# import pytest
+# from api.polls import PollApp
 
 
 # @pytest.fixture
