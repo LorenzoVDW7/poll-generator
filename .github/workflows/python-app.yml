@@ -44,5 +44,12 @@ jobs:
         DB_USER: root
         DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
         DB_HOST: 127.0.0.1
-        DB_NAME: polling
+        DB_NAME: test
       run: pytest
+    - name: Print Environment Variables
+      run: env | grep DB_
+      env:
+        DB_USER: root
+        DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        DB_HOST: 127.0.0.1
+        DB_NAME: test
