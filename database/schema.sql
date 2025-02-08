@@ -1,6 +1,3 @@
-CREATE DATABASE polling;
-USE polling;
-
 CREATE TABLE IF NOT EXISTS user
 (
     id        INT PRIMARY KEY AUTO_INCREMENT,
