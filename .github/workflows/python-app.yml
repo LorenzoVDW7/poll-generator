@@ -33,6 +33,9 @@ jobs:
         python -m pip install --upgrade pip
         pip install ruff pytest mysql-connector-python
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    - name: Initialize MySQL Schema
+      run: |
+        mysql -h ${{ secrets.DB_HOST }} --port ${{ secrets.DB_PORT }} -u${{ secrets.DB_USER }} -p${{ secrets.DB_PASSWORD }} ${{ secrets.DB_NAME }} < schema.sql
     - name: Lint with ruff
       run: ruff check --output-format=github .
     - name: Debug MySQL Status
