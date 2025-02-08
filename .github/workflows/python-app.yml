@@ -17,7 +17,7 @@ jobs:
         image: mysql:8.0
         env:
           MYSQL_ROOT_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          MYSQL_DATABASE: ${{ secrets.DB_USER }}
+          MYSQL_DATABASE: ${{ secrets.DB_NAME }}
         ports:
           - '3306:3306'
         options: --health-cmd="mysqladmin ping --silent" --health-interval=10s --health-timeout=5s --health-retries=20
@@ -33,6 +33,12 @@ jobs:
         python -m pip install --upgrade pip
         pip install ruff pytest mysql-connector-python
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    - name: Initialize MySQL Schema
+      run: |
+        mysql -h ${{ secrets.DB_HOST }} --port ${{ secrets.DB_PORT }} -u${{ secrets.DB_USER }} -p${{ secrets.DB_PASSWORD }} -e "CREATE DATABASE IF NOT EXISTS ${{ secrets.DB_NAME }};"
+    - name: Applying schema
+      run: |
+        mysql -h ${{ secrets.DB_HOST }} --port ${{ secrets.DB_PORT }} -u${{ secrets.DB_USER }} -p${{ secrets.DB_PASSWORD }} polling < database/schema.sql
     - name: Lint with ruff
       run: ruff check --output-format=github .
     - name: Debug MySQL Status
